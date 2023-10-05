@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D Character Sheet</title>
+    <link rel="stylesheet" type="text/css" href="css/Styles.css">
+    <style>
+        /* Add some basic styling to make it look like a form */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        /* Style the form fields */
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>D&D Character Sheet</h1>
+        <form>
+            <label for="playerName">Player Name:</label>
+            <input type="text" id="playerName" name="playerName" placeholder="Your Name">
+
+            <label for="characterName">Character Name:</label>
+            <input type="text" id="characterName" name="characterName" placeholder="Character Name">
+
+            <label for="race">Race:</label>
+            <input type="text" id="race" name="race" placeholder="Race">
+
+            <label for="class">Class:</label>
+            <input type="text" id="class" name="class" placeholder="Class">
+
+            <!-- You can add more fields as needed for your character sheet -->
+
+            <!-- Add buttons for saving and submitting the form -->
+            <input type="submit" value="Save">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
