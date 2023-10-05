@@ -2,8 +2,77 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="css/Styles.css">
-  </head>
-  <body>
-    <h1>Character Creator</h1>
+    <style>
+        .abilityBox {
+          width: 50px;
+          height: 50px;
+          text-align: center;
+          line-height: 50px;
+          border: 1px solid black;
+          display: inline-block;
+          margin-right: 10px;
+        }
+    
+        .scoreInput {
+          width: 50px;
+        }
+      </style>
+    </head>
+    <body>
+    
+    <h1>D&D Ability Score Generator</h1>
+    
+    <div id="abilityScores">
+      <div class="abilityBox">
+        <label for="strength">STR</label><br>
+        <input type="text" id="strength" class="scoreInput" readonly>
+      </div>
+    
+      <div class="abilityBox">
+        <label for="dexterity">DEX</label><br>
+        <input type="text" id="dexterity" class="scoreInput" readonly>
+      </div>
+    
+      <div class="abilityBox">
+        <label for="constitution">CON</label><br>
+        <input type="text" id="constitution" class="scoreInput" readonly>
+      </div>
+    
+      <div class="abilityBox">
+        <label for="intelligence">INT</label><br>
+        <input type="text" id="intelligence" class="scoreInput" readonly>
+      </div>
+    
+      <div class="abilityBox">
+        <label for="wisdom">WIS</label><br>
+        <input type="text" id="wisdom" class="scoreInput" readonly>
+      </div>
+    
+      <div class="abilityBox">
+        <label for="charisma">CHA</label><br>
+        <input type="text" id="charisma" class="scoreInput" readonly>
+      </div>
+    </div>
+    <br><br>
+    <button onclick="rollAbilityScores()">Roll Ability Scores</button>
+    
+    <script>
+    function rollAbilityScores() {
+      const abilityScores = [];
+      for (let i = 0; i < 6; i++) {
+        const rolls = Array.from({length: 4}, () => Math.floor(Math.random() * 6) + 1);
+        rolls.sort((a, b) => a - b);
+        const totalScore = rolls.slice(1).reduce((sum, roll) => sum + roll, 0);
+        abilityScores.push(totalScore);
+      }
+    
+      document.getElementById("strength").value = abilityScores[0];
+      document.getElementById("dexterity").value = abilityScores[1];
+      document.getElementById("constitution").value = abilityScores[2];
+      document.getElementById("intelligence").value = abilityScores[3];
+      document.getElementById("wisdom").value = abilityScores[4];
+      document.getElementById("charisma").value = abilityScores[5];
+    }
+    </script>
   </body>
 </html>
