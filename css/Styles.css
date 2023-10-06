@@ -21,7 +21,8 @@ p{
     line-height:1.4;
     margin:0}
 p+p{
-    text-indent:24px;margin-top:0!important}
+    text-indent:24px;
+    margin-top:0!important}
 .box{
     background-color:#fff;
     padding:16px;

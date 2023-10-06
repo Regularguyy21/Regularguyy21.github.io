@@ -23,47 +23,73 @@
     }
 
     .rollButton {
-      margin-left: 20px;
+      margin-right: 10px;
+    }
+    .abilitySelection {
+      float: right,;
+    }
+    .row {
+      display: flex;
+    }
+    .columb {
+      flex: 50%;
+      padding: 10px;
     }
   </style>
 </head>
 <body>
 
 <h1>D&D Ability Score Generator</h1>
-<div id="initialAbilityScores">
-  <div class="abilityBox">
-    <label for="strength">STR</label><br>
-  </div>
-  <div class="abilityBox">
-    <label for="dexterity">DEX</label><br>
-  </div>
+<div class="row">
+  <div class="columb">
+    <div id="initialAbilityScores">
+      <div class="abilityBox">
+        <label for="strength">STR</label><br>
+      </div>
+      <div class="abilityBox">
+        <label for="dexterity">DEX</label><br>
+      </div>
 
-  <div class="abilityBox">
-    <label for="constitution">CON</label><br>
-  </div>
+      <div class="abilityBox">
+        <label for="constitution">CON</label><br>
+      </div>
 
-  <div class="abilityBox">
-    <label for="intelligence">INT</label><br>
-  </div>
+      <div class="abilityBox">
+        <label for="intelligence">INT</label><br>
+      </div>
 
-  <div class="abilityBox">
-    <label for="wisdom">WIS</label><br>
-  </div>
+      <div class="abilityBox">
+        <label for="wisdom">WIS</label><br>
+      </div>
 
-  <div class="abilityBox">
-    <label for="charisma">CHA</label><br>
+      <div class="abilityBox">
+        <label for="charisma">CHA</label><br>
+      </div>
+    </div>
+    <div class="abilitySection">
+      <input type="text" id="strength" class="scoreInput" value="0">
+      <input type="text" id="dexterity" class="scoreInput" value="0">
+      <input type="text" id="constitution" class="scoreInput" value="0">
+      <input type="text" id="intelligence" class="scoreInput" value="0">
+      <input type="text" id="wisdom" class="scoreInput" value="0">
+      <input type="text" id="charisma" class="scoreInput" value="0">
+    </div>
+  </div>
+    <div class="columb">
+      <div class="abilitySelection">
+        <input type="text" id="rolledScore0" class="scoreInput" value="0">
+        <input type="text" id="rolledScore1" class="scoreInput" value="0">
+        <input type="text" id="rolledScore2" class="scoreInput" value="0">
+        <input type="text" id="rolledScore3" class="scoreInput" value="0">
+        <input type="text" id="rolledScore4" class="scoreInput" value="0">
+        <input type="text" id="rolledScore5" class="scoreInput" value="0">
+        <button class="rollButton" onclick="rollAbilityScores()">Roll</button>
+      </div>
   </div>
 </div>
-<div class="abilitySection">
-    <input type="text" id="strength" class="scoreInput" value="0">
-    <input type="text" id="dexterity" class="scoreInput" value="0">
-    <input type="text" id="constitution" class="scoreInput" value="0">
-    <input type="text" id="intelligence" class="scoreInput" value="0">
-    <input type="text" id="wisdom" class="scoreInput" value="0">
-    <input type="text" id="charisma" class="scoreInput" value="0">
-    <button class="rollButton" onclick="rollAbilityScores()">Roll</button>
-</div>
 
+
+<h2>Modifiers</h2>
 <div class="abilitySection">
   <h3>
   <input type="text" id="raceModifier1" class="scoreInput" value="0">
@@ -98,8 +124,8 @@
 </div>
 
 <div class="abilitySection">
-  <button onclick="calculateFinalScores()">Calculate</button>
   <h2>Final Ability Scores</h2>
+  <button onclick="calculateFinalScores()">Calculate</button>
   <div id="finalScores"></div>
 </div>
 
@@ -112,13 +138,9 @@ function rollAbilityScores() {
     const totalScore = rolls.slice(1).reduce((sum, roll) => sum + roll, 0);
     abilityScores.push(totalScore);
   }
-
-  document.getElementById("strength").value = abilityScores[0];
-  document.getElementById("dexterity").value = abilityScores[1];
-  document.getElementById("constitution").value = abilityScores[2];
-  document.getElementById("intelligence").value = abilityScores[3];
-  document.getElementById("wisdom").value = abilityScores[4];
-  document.getElementById("charisma").value = abilityScores[5];
+  for(let j = 0; j < 6; j++) {
+    document.getElementById(`rolledScore${j}`).value = abilityScores[j];
+  }
 }
 
 function calculateFinalScores() {
