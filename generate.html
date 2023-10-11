@@ -1,4 +1,72 @@
 <!DOCTYPE html>
 <html>
-  
+  <head>
+    <title>Character Generator</title>
+    <link rel="stylesheet" type="text/css" href="css/Styles.css">
+    <style>
+      .abilityBox {
+        width: 75px;
+        height: 75px;
+        text-align: center;
+        line-height: 75px;
+        border: 2px solid black;
+        display: inline-block;
+        margin-right: 8px;
+      }
+      .pointCounter {
+        display: inline-block;
+        font-size: large;
+        margin-left: 60px;
+      }
+      .counterDisplay {
+        width: 45px;
+        font-size: x-large;
+      }
+      .abilityInput{
+        display: inline;
+        margin-right: 8px;
+        font-size: large;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="abilityScores">
+        <div class="abilityBox">
+          <label for="strength">STR</label><br>
+        </div>
+        <div class="abilityBox">
+          <label for="dexterity">DEX</label><br>
+        </div>
+
+        <div class="abilityBox">
+          <label for="constitution">CON</label><br>
+        </div>
+
+        <div class="abilityBox">
+          <label for="intelligence">INT</label><br>
+        </div>
+
+        <div class="abilityBox">
+          <label for="wisdom">WIS</label><br>
+        </div>
+
+        <div class="abilityBox">
+          <label for="charisma">CHA</label><br>
+        </div>
+        <div class="pointCounter">
+          <label>Points Left:</label><br>
+          <input type="number" class="counterDisplay" min="0" max="27" value="27" readonly>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div id="abilityInputList">
+        <input type="number"class="abilityInput" min="8" max="15" value="8">
+        <input type="number"class="abilityInput" min="8" max="15" value="8">
+        <input type="number"class="abilityInput" min="8" max="15" value="8">
+        <input type="number"class="abilityInput" min="8" max="15" value="8">
+        <input type="number"class="abilityInput" min="8" max="15" value="8">
+        <input type="number"class="abilityInput" min="8" max="15" value="8">
+      </div>
+  </body>
 </html>

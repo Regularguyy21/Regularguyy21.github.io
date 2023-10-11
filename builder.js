@@ -89,10 +89,12 @@ function rollAbilityScores() {
       CON: ${finalScores.constitution}<br>
       INT: ${finalScores.intelligence}<br>
       WIS: ${finalScores.wisdom}<br>
-      CHA: ${finalScores.charisma}
-    `;
+      CHA: ${finalScores.charisma}`;
   }
   
   function sumArray(arr) {
     return arr.reduce((sum, value) => sum + value, 0);
+  }
+  function createCharacter(race,las) {
+
   }
