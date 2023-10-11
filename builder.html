@@ -3,43 +3,6 @@
 <head>
   <title>D&D Ability Score Generator</title>
   <link rel="stylesheet" type="text/css" href="css/Styles.css">
-  <style>
-    .abilityBox {
-      width: 50px;
-      height: 50px;
-      text-align: center;
-      line-height: 50px;
-      border: 1px solid black;
-      display: inline-block;
-      margin-right: 6px;
-    }
-
-    .scoreInput {
-      width: 50px;
-    }
-
-    .abilitySection {
-      margin-top: 20px;
-    }
-
-    .rollButton {
-      margin-right: 10px;
-    }
-    .abilitySelection {
-      float: right,;
-    }
-    .row {
-      display: flex;
-    }
-    .columb {
-      flex: 50%;
-      padding: 10px;
-    }
-    .custom-dropdown {
-      width: 58px
-
-    }
-  </style>
 </head>
 <body>
 
@@ -158,34 +121,34 @@
 <h2>Modifiers</h2>
 <div class="abilitySection">
   <h3>
-  <input type="text" id="raceModifier1" class="scoreInput" value="0">
-  <input type="text" id="raceModifier2" class="scoreInput" value="0">
-  <input type="text" id="raceModifier3" class="scoreInput" value="0">
-  <input type="text" id="raceModifier4" class="scoreInput" value="0">
-  <input type="text" id="raceModifier5" class="scoreInput" value="0">
-  <input type="text" id="raceModifier6" class="scoreInput" value="0">
+  <input type="number" id="raceModifier1" class="scoreInput" value="0" min="0" max="2">
+  <input type="number" id="raceModifier2" class="scoreInput" value="0" min="0" max="2">
+  <input type="number" id="raceModifier3" class="scoreInput" value="0" min="0" max="2">
+  <input type="number" id="raceModifier4" class="scoreInput" value="0" min="0" max="2">
+  <input type="number" id="raceModifier5" class="scoreInput" value="0" min="0" max="2">
+  <input type="number" id="raceModifier6" class="scoreInput" value="0" min="0" max="2">
   Race Mod.</h3>
 </div>
 
 <div class="abilitySection">
   <h3>
-  <input type="text" id="abilityImprovements1" class="scoreInput" value="0">
-  <input type="text" id="abilityImprovements2" class="scoreInput" value="0">
-  <input type="text" id="abilityImprovements3" class="scoreInput" value="0">
-  <input type="text" id="abilityImprovements4" class="scoreInput" value="0">
-  <input type="text" id="abilityImprovements5" class="scoreInput" value="0">
-  <input type="text" id="abilityImprovements6" class="scoreInput" value="0">
+  <input type="number" id="abilityImprovements1" class="scoreInput" value="0">
+  <input type="number" id="abilityImprovements2" class="scoreInput" value="0">
+  <input type="number" id="abilityImprovements3" class="scoreInput" value="0">
+  <input type="number" id="abilityImprovements4" class="scoreInput" value="0">
+  <input type="number" id="abilityImprovements5" class="scoreInput" value="0">
+  <input type="number" id="abilityImprovements6" class="scoreInput" value="0">
   Ability Improvements.</h3>
 </div>
 
 <div class="abilitySection">
 <h3>
-  <input type="text" id="miscModifier1" class="scoreInput" value="0">
-  <input type="text" id="miscModifier2" class="scoreInput" value="0">
-  <input type="text" id="miscModifier3" class="scoreInput" value="0">
-  <input type="text" id="miscModifier4" class="scoreInput" value="0">
-  <input type="text" id="miscModifier5" class="scoreInput" value="0">
-  <input type="text" id="miscModifier6" class="scoreInput" value="0">
+  <input type="number" id="miscModifier1" class="scoreInput" value="0">
+  <input type="number" id="miscModifier2" class="scoreInput" value="0">
+  <input type="number" id="miscModifier3" class="scoreInput" value="0">
+  <input type="number" id="miscModifier4" class="scoreInput" value="0">
+  <input type="number" id="miscModifier5" class="scoreInput" value="0">
+  <input type="number" id="miscModifier6" class="scoreInput" value="0">
   Misc. </h3>
 </div>
 
@@ -195,106 +158,7 @@
   <div id="finalScores"></div>
 </div>
 
-<script>
-function rollAbilityScores() {
-  const abilityScores = [];
-  for (let i = 0; i < 6; i++) {
-    const rolls = Array.from({length: 4}, () => Math.floor(Math.random() * 6) + 1);
-    rolls.sort((a, b) => a - b);
-    const totalScore = rolls.slice(1).reduce((sum, roll) => sum + roll, 0);
-    abilityScores.push(totalScore);
-  }
-  for(let j = 0; j < 6; j++) {
-    document.getElementById(`rolledScore${j}`).value = abilityScores[j];
-  }
-}
-function updateDropdown(selectedDropdown) {
-  selectedAbility=selectedDropdown.value
-  var numberDropdowns = document.getElementsByClassName('custom-dropdown');
-
-  // Loop through all number dropdowns
-  for (var i = 0; i < numberDropdowns.length; i++) {
-    var numberDropdown = numberDropdowns[i];
-    
-    // Skip the selected number dropdown
-    if (numberDropdown !== selectedDropdown && selectedAbility !== "") {
-      var abilityOptions = numberDropdown.getElementsByTagName('option');
-      
-      // Loop through the ability options of the other number dropdowns
-      for (var j = 0; j < abilityOptions.length; j++) {
-        if (abilityOptions[j].value === selectedAbility) {
-          abilityOptions[j].disabled = true;
-        }
-      }
-    }
-  }
-}
-function assignAbilities() {
-  for(var i=0;i<6;i++) {
-    if(document.getElementById("dropdown" + (i+1)).value == "Strength") {
-      document.getElementById("strength").value = document.getElementById("rolledScore"+i).value
-    } else if(document.getElementById("dropdown" + (i+1)).value == "Dexterity") {
-      document.getElementById("dexterity").value = document.getElementById("rolledScore"+i).value
-    } else if(document.getElementById("dropdown" + (i+1)).value == "Constitution") {
-      document.getElementById("constitution").value = document.getElementById("rolledScore"+i).value
-    } else if(document.getElementById("dropdown" + (i+1)).value == "Intelligence") {
-      document.getElementById("intelligence").value = document.getElementById("rolledScore"+i).value
-    } else if(document.getElementById("dropdown" + (i+1)).value == "Wisdom") {
-      document.getElementById("wisdom").value = document.getElementById("rolledScore"+i).value
-    } else if(document.getElementById("dropdown" + (i+1)).value == "Charisma") {
-      document.getElementById("charisma").value = document.getElementById("rolledScore"+i).value
-    }
-  }
-}
-function calculateFinalScores() {
-  const abilityScores = {
-    strength: parseInt(document.getElementById("strength").value) || 0,
-    dexterity: parseInt(document.getElementById("dexterity").value) || 0,
-    constitution: parseInt(document.getElementById("constitution").value) || 0,
-    intelligence: parseInt(document.getElementById("intelligence").value) || 0,
-    wisdom: parseInt(document.getElementById("wisdom").value) || 0,
-    charisma: parseInt(document.getElementById("charisma").value) || 0
-  };
-
-  const raceModifiers = [];
-  for (let i = 1; i <= 6; i++) {
-    raceModifiers.push(parseInt(document.getElementById(`raceModifier${i}`).value) || 0);
-  }
-
-  const abilityImprovements = [];
-  for (let i = 1; i <= 6; i++) {
-    abilityImprovements.push(parseInt(document.getElementById(`abilityImprovements${i}`).value) || 0);
-  }
-
-  const miscModifiers = [];
-  for (let i = 1; i <= 6; i++) {
-    miscModifiers.push(parseInt(document.getElementById(`miscModifier${i}`).value) || 0);
-  }
-
-  const finalScores = {
-    strength: abilityScores.strength + raceModifiers[0] + abilityImprovements[0] + miscModifiers[0],
-    dexterity: abilityScores.dexterity + raceModifiers[1] + abilityImprovements[1] + miscModifiers[1],
-    constitution: abilityScores.constitution + raceModifiers[2] + abilityImprovements[2] + miscModifiers[2],
-    intelligence: abilityScores.intelligence + raceModifiers[3] + abilityImprovements[3] + miscModifiers[3],
-    wisdom: abilityScores.wisdom + raceModifiers[4] + abilityImprovements[4] + miscModifiers[4],
-    charisma: abilityScores.charisma + raceModifiers[5] + abilityImprovements[5] + miscModifiers[5]
-  };
-
-  // Display the final ability scores
-  document.getElementById("finalScores").innerHTML = `
-    STR: ${finalScores.strength}<br>
-    DEX: ${finalScores.dexterity}<br>
-    CON: ${finalScores.constitution}<br>
-    INT: ${finalScores.intelligence}<br>
-    WIS: ${finalScores.wisdom}<br>
-    CHA: ${finalScores.charisma}
-  `;
-}
-
-function sumArray(arr) {
-  return arr.reduce((sum, value) => sum + value, 0);
-}
-</script>
+<script src="builder.js"></script>
 <a href="/index.html">back</a>
 </body>
 </html>
