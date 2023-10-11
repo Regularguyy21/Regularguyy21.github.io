@@ -30,37 +30,3 @@ p+p{
     border-right:2px solid #000;
     overflow:hidden;margin:16px 0}
 /*# sourceMappingURL=dnd.ff20a3d7.css.map */
-.abilityBox {
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    line-height: 50px;
-    border: 1px solid black;
-    display: inline-block;
-    margin-right: 6px;
-}
-
-.scoreInput {
-    width: 50px;
-}
-
-.abilitySection {
-  margin-top: 20px;
-}
-
-.rollButton {
-  margin-right: 10px;
-}
-.abilitySelection {
-  float: right,;
-}
-.row {
-  display: flex;
-}
-.columb {
-  flex: 50%;
-  padding: 10px;
-}
-.custom-dropdown {
-  width: 58px
-}

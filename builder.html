@@ -1,164 +1,200 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>D&D Ability Score Generator</title>
-  <link rel="stylesheet" type="text/css" href="css/Styles.css">
-</head>
+  <head>
+    <title>D&D Ability Score Generator</title>
+    <link rel="stylesheet" type="text/css" href="css/Styles.css">
+  </head>
+  <style>
+    .abilityBox {
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      border: 1px solid black;
+      display: inline-block;
+      margin-right: 6px;
+    }
+
+    .scoreInput {
+      width: 50px;
+    }
+
+    .abilitySection {
+      margin-top: 20px;
+    }
+
+    .rollButton {
+      margin-right: 10px;
+    }
+    .abilitySelection {
+      float: right,;
+    }
+    .row {
+      display: flex;
+    }
+    .columb {
+      flex: 50%;
+      padding: 10px;
+    }
+    .custom-dropdown {
+      width: 58px
+    }
+  </style>
 <body>
 
-<h1>D&D Ability Score Generator</h1>
-<div class="row">
-  <div class="columb">
-    <div id="initialAbilityScores">
-      <div class="abilityBox">
-        <label for="strength">STR</label><br>
-      </div>
-      <div class="abilityBox">
-        <label for="dexterity">DEX</label><br>
-      </div>
-
-      <div class="abilityBox">
-        <label for="constitution">CON</label><br>
-      </div>
-
-      <div class="abilityBox">
-        <label for="intelligence">INT</label><br>
-      </div>
-
-      <div class="abilityBox">
-        <label for="wisdom">WIS</label><br>
-      </div>
-
-      <div class="abilityBox">
-        <label for="charisma">CHA</label><br>
-      </div>
-    </div>
-    <div class="abilitySection">
-      <input type="text" id="strength" class="scoreInput" value="0" readonly>
-      <input type="text" id="dexterity" class="scoreInput" value="0" readonly>
-      <input type="text" id="constitution" class="scoreInput" value="0" readonly>
-      <input type="text" id="intelligence" class="scoreInput" value="0" readonly>
-      <input type="text" id="wisdom" class="scoreInput" value="0" readonly>
-      <input type="text" id="charisma" class="scoreInput" value="0" readonly>
-    </div>
-  </div>
+  <h1>D&D Ability Score Generator</h1>
+  <div class="row">
     <div class="columb">
-      <div class="abilitySelection">
-        <input type="text" id="rolledScore0" class="scoreInput" value="0">
-        <input type="text" id="rolledScore1" class="scoreInput" value="0">
-        <input type="text" id="rolledScore2" class="scoreInput" value="0">
-        <input type="text" id="rolledScore3" class="scoreInput" value="0">
-        <input type="text" id="rolledScore4" class="scoreInput" value="0">
-        <input type="text" id="rolledScore5" class="scoreInput" value="0">
-        <button class="rollButton" onclick="rollAbilityScores()">Roll</button>
+      <div id="initialAbilityScores">
+        <div class="abilityBox">
+          <label for="strength">STR</label><br>
+        </div>
+        <div class="abilityBox">
+          <label for="dexterity">DEX</label><br>
+        </div>
+
+        <div class="abilityBox">
+          <label for="constitution">CON</label><br>
+        </div>
+
+        <div class="abilityBox">
+          <label for="intelligence">INT</label><br>
+        </div>
+
+        <div class="abilityBox">
+          <label for="wisdom">WIS</label><br>
+        </div>
+
+        <div class="abilityBox">
+          <label for="charisma">CHA</label><br>
+        </div>
       </div>
       <div class="abilitySection">
-        <select id="dropdown1" class="custom-dropdown" onchange="updateDropdown(this)">
-          <option value="">Select an ability</option>
-          <option value="Strength">Str</option>
-          <option value="Dexterity">Dex</option>
-          <option value="Constitution">Con</option>
-          <option value="Intelligence">Int</option>
-          <option value="Wisdom">Wis</option>
-          <option value="Charisma">Car</option>
-        </select>
-
-        <select id="dropdown2" class="custom-dropdown" onchange="updateDropdown(this)">
-          <option value="">Select an ability</option>
-          <option value="Strength">Str</option>
-          <option value="Dexterity">Dex</option>
-          <option value="Constitution">Con</option>
-          <option value="Intelligence">Int</option>
-          <option value="Wisdom">Wis</option>
-          <option value="Charisma">Car</option>
-        </select>
-
-        <select id="dropdown3" class="custom-dropdown" onchange="updateDropdown(this)">
-          <option value="">Select an ability</option>
-          <option value="Strength">Str</option>
-          <option value="Dexterity">Dex</option>
-          <option value="Constitution">Con</option>
-          <option value="Intelligence">Int</option>
-          <option value="Wisdom">Wis</option>
-          <option value="Charisma">Car</option>
-        </select>
-
-        <select id="dropdown4" class="custom-dropdown" onchange="updateDropdown(this)">
-          <option value="">Select an ability</option>
-          <option value="Strength">Str</option>
-          <option value="Dexterity">Dex</option>
-          <option value="Constitution">Con</option>
-          <option value="Intelligence">Int</option>
-          <option value="Wisdom">Wis</option>
-          <option value="Charisma">Car</option>
-        </select>
-
-        <select id="dropdown5" class="custom-dropdown" onchange="updateDropdown(this)">
-          <option value="">Select an ability</option>
-          <option value="Strength">Str</option>
-          <option value="Dexterity">Dex</option>
-          <option value="Constitution">Con</option>
-          <option value="Intelligence">Int</option>
-          <option value="Wisdom">Wis</option>
-          <option value="Charisma">Car</option>
-        </select>
-
-        <select id="dropdown6" class="custom-dropdown" onchange="updateDropdown(this)">
-          <option value="">Select an ability</option>
-          <option value="Strength">Str</option>
-          <option value="Dexterity">Dex</option>
-          <option value="Constitution">Con</option>
-          <option value="Intelligence">Int</option>
-          <option value="Wisdom">Wis</option>
-          <option value="Charisma">Car</option>
-        </select>
-        <button class="rollButton" onclick="assignAbilities()">Assign</button>
+        <input type="text" id="strength" class="scoreInput" value="0" readonly>
+        <input type="text" id="dexterity" class="scoreInput" value="0" readonly>
+        <input type="text" id="constitution" class="scoreInput" value="0" readonly>
+        <input type="text" id="intelligence" class="scoreInput" value="0" readonly>
+        <input type="text" id="wisdom" class="scoreInput" value="0" readonly>
+        <input type="text" id="charisma" class="scoreInput" value="0" readonly>
       </div>
+    </div>
+      <div class="columb">
+        <div class="abilitySelection">
+          <input type="text" id="rolledScore0" class="scoreInput" value="0">
+          <input type="text" id="rolledScore1" class="scoreInput" value="0">
+          <input type="text" id="rolledScore2" class="scoreInput" value="0">
+          <input type="text" id="rolledScore3" class="scoreInput" value="0">
+          <input type="text" id="rolledScore4" class="scoreInput" value="0">
+          <input type="text" id="rolledScore5" class="scoreInput" value="0">
+          <button class="rollButton" onclick="rollAbilityScores()">Roll</button>
+        </div>
+        <div class="abilitySection">
+          <select id="dropdown1" class="custom-dropdown" onchange="updateDropdown(this)">
+            <option value="">Select an ability</option>
+            <option value="Strength">Str</option>
+            <option value="Dexterity">Dex</option>
+            <option value="Constitution">Con</option>
+            <option value="Intelligence">Int</option>
+            <option value="Wisdom">Wis</option>
+            <option value="Charisma">Car</option>
+          </select>
+
+          <select id="dropdown2" class="custom-dropdown" onchange="updateDropdown(this)">
+            <option value="">Select an ability</option>
+            <option value="Strength">Str</option>
+            <option value="Dexterity">Dex</option>
+            <option value="Constitution">Con</option>
+            <option value="Intelligence">Int</option>
+            <option value="Wisdom">Wis</option>
+            <option value="Charisma">Car</option>
+          </select>
+
+          <select id="dropdown3" class="custom-dropdown" onchange="updateDropdown(this)">
+            <option value="">Select an ability</option>
+            <option value="Strength">Str</option>
+            <option value="Dexterity">Dex</option>
+            <option value="Constitution">Con</option>
+            <option value="Intelligence">Int</option>
+            <option value="Wisdom">Wis</option>
+            <option value="Charisma">Car</option>
+          </select>
+
+          <select id="dropdown4" class="custom-dropdown" onchange="updateDropdown(this)">
+            <option value="">Select an ability</option>
+            <option value="Strength">Str</option>
+            <option value="Dexterity">Dex</option>
+            <option value="Constitution">Con</option>
+            <option value="Intelligence">Int</option>
+            <option value="Wisdom">Wis</option>
+            <option value="Charisma">Car</option>
+          </select>
+
+          <select id="dropdown5" class="custom-dropdown" onchange="updateDropdown(this)">
+            <option value="">Select an ability</option>
+            <option value="Strength">Str</option>
+            <option value="Dexterity">Dex</option>
+            <option value="Constitution">Con</option>
+            <option value="Intelligence">Int</option>
+            <option value="Wisdom">Wis</option>
+            <option value="Charisma">Car</option>
+          </select>
+
+          <select id="dropdown6" class="custom-dropdown" onchange="updateDropdown(this)">
+            <option value="">Select an ability</option>
+            <option value="Strength">Str</option>
+            <option value="Dexterity">Dex</option>
+            <option value="Constitution">Con</option>
+            <option value="Intelligence">Int</option>
+            <option value="Wisdom">Wis</option>
+            <option value="Charisma">Car</option>
+          </select>
+          <button class="rollButton" onclick="assignAbilities()">Assign</button>
+        </div>
+    </div>
   </div>
-</div>
 
 
-<h2>Modifiers</h2>
-<div class="abilitySection">
+  <h2>Modifiers</h2>
+  <div class="abilitySection">
+    <h3>
+    <input type="number" id="raceModifier1" class="scoreInput" value="0" min="0" max="2">
+    <input type="number" id="raceModifier2" class="scoreInput" value="0" min="0" max="2">
+    <input type="number" id="raceModifier3" class="scoreInput" value="0" min="0" max="2">
+    <input type="number" id="raceModifier4" class="scoreInput" value="0" min="0" max="2">
+    <input type="number" id="raceModifier5" class="scoreInput" value="0" min="0" max="2">
+    <input type="number" id="raceModifier6" class="scoreInput" value="0" min="0" max="2">
+    Race Mod.</h3>
+  </div>
+
+  <div class="abilitySection">
+    <h3>
+    <input type="number" id="abilityImprovements1" class="scoreInput" value="0">
+    <input type="number" id="abilityImprovements2" class="scoreInput" value="0">
+    <input type="number" id="abilityImprovements3" class="scoreInput" value="0">
+    <input type="number" id="abilityImprovements4" class="scoreInput" value="0">
+    <input type="number" id="abilityImprovements5" class="scoreInput" value="0">
+    <input type="number" id="abilityImprovements6" class="scoreInput" value="0">
+    Ability Improvements.</h3>
+  </div>
+
+  <div class="abilitySection">
   <h3>
-  <input type="number" id="raceModifier1" class="scoreInput" value="0" min="0" max="2">
-  <input type="number" id="raceModifier2" class="scoreInput" value="0" min="0" max="2">
-  <input type="number" id="raceModifier3" class="scoreInput" value="0" min="0" max="2">
-  <input type="number" id="raceModifier4" class="scoreInput" value="0" min="0" max="2">
-  <input type="number" id="raceModifier5" class="scoreInput" value="0" min="0" max="2">
-  <input type="number" id="raceModifier6" class="scoreInput" value="0" min="0" max="2">
-  Race Mod.</h3>
-</div>
+    <input type="number" id="miscModifier1" class="scoreInput" value="0">
+    <input type="number" id="miscModifier2" class="scoreInput" value="0">
+    <input type="number" id="miscModifier3" class="scoreInput" value="0">
+    <input type="number" id="miscModifier4" class="scoreInput" value="0">
+    <input type="number" id="miscModifier5" class="scoreInput" value="0">
+    <input type="number" id="miscModifier6" class="scoreInput" value="0">
+    Misc. </h3>
+  </div>
 
-<div class="abilitySection">
-  <h3>
-  <input type="number" id="abilityImprovements1" class="scoreInput" value="0">
-  <input type="number" id="abilityImprovements2" class="scoreInput" value="0">
-  <input type="number" id="abilityImprovements3" class="scoreInput" value="0">
-  <input type="number" id="abilityImprovements4" class="scoreInput" value="0">
-  <input type="number" id="abilityImprovements5" class="scoreInput" value="0">
-  <input type="number" id="abilityImprovements6" class="scoreInput" value="0">
-  Ability Improvements.</h3>
-</div>
+  <div class="abilitySection">
+    <h2>Final Ability Scores</h2>
+    <button onclick="calculateFinalScores()">Calculate</button>
+    <div id="finalScores"></div>
+  </div>
 
-<div class="abilitySection">
-<h3>
-  <input type="number" id="miscModifier1" class="scoreInput" value="0">
-  <input type="number" id="miscModifier2" class="scoreInput" value="0">
-  <input type="number" id="miscModifier3" class="scoreInput" value="0">
-  <input type="number" id="miscModifier4" class="scoreInput" value="0">
-  <input type="number" id="miscModifier5" class="scoreInput" value="0">
-  <input type="number" id="miscModifier6" class="scoreInput" value="0">
-  Misc. </h3>
-</div>
-
-<div class="abilitySection">
-  <h2>Final Ability Scores</h2>
-  <button onclick="calculateFinalScores()">Calculate</button>
-  <div id="finalScores"></div>
-</div>
-
-<script src="builder.js"></script>
-<a href="/index.html">back</a>
+  <script src="builder.js"></script>
+  <a href="/index.html">back</a>
 </body>
 </html>
