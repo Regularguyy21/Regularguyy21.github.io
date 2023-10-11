@@ -35,6 +35,10 @@
       flex: 50%;
       padding: 10px;
     }
+    .custom-dropdown {
+      width: 58px
+
+    }
   </style>
 </head>
 <body>
@@ -67,12 +71,12 @@
       </div>
     </div>
     <div class="abilitySection">
-      <input type="text" id="strength" class="scoreInput" value="0">
-      <input type="text" id="dexterity" class="scoreInput" value="0">
-      <input type="text" id="constitution" class="scoreInput" value="0">
-      <input type="text" id="intelligence" class="scoreInput" value="0">
-      <input type="text" id="wisdom" class="scoreInput" value="0">
-      <input type="text" id="charisma" class="scoreInput" value="0">
+      <input type="text" id="strength" class="scoreInput" value="0" readonly>
+      <input type="text" id="dexterity" class="scoreInput" value="0" readonly>
+      <input type="text" id="constitution" class="scoreInput" value="0" readonly>
+      <input type="text" id="intelligence" class="scoreInput" value="0" readonly>
+      <input type="text" id="wisdom" class="scoreInput" value="0" readonly>
+      <input type="text" id="charisma" class="scoreInput" value="0" readonly>
     </div>
   </div>
     <div class="columb">
@@ -84,6 +88,68 @@
         <input type="text" id="rolledScore4" class="scoreInput" value="0">
         <input type="text" id="rolledScore5" class="scoreInput" value="0">
         <button class="rollButton" onclick="rollAbilityScores()">Roll</button>
+      </div>
+      <div class="abilitySection">
+        <select id="dropdown1" class="custom-dropdown" onchange="updateDropdown(this)">
+          <option value="">Select an ability</option>
+          <option value="Strength">Str</option>
+          <option value="Dexterity">Dex</option>
+          <option value="Constitution">Con</option>
+          <option value="Intelligence">Int</option>
+          <option value="Wisdom">Wis</option>
+          <option value="Charisma">Car</option>
+        </select>
+
+        <select id="dropdown2" class="custom-dropdown" onchange="updateDropdown(this)">
+          <option value="">Select an ability</option>
+          <option value="Strength">Str</option>
+          <option value="Dexterity">Dex</option>
+          <option value="Constitution">Con</option>
+          <option value="Intelligence">Int</option>
+          <option value="Wisdom">Wis</option>
+          <option value="Charisma">Car</option>
+        </select>
+
+        <select id="dropdown3" class="custom-dropdown" onchange="updateDropdown(this)">
+          <option value="">Select an ability</option>
+          <option value="Strength">Str</option>
+          <option value="Dexterity">Dex</option>
+          <option value="Constitution">Con</option>
+          <option value="Intelligence">Int</option>
+          <option value="Wisdom">Wis</option>
+          <option value="Charisma">Car</option>
+        </select>
+
+        <select id="dropdown4" class="custom-dropdown" onchange="updateDropdown(this)">
+          <option value="">Select an ability</option>
+          <option value="Strength">Str</option>
+          <option value="Dexterity">Dex</option>
+          <option value="Constitution">Con</option>
+          <option value="Intelligence">Int</option>
+          <option value="Wisdom">Wis</option>
+          <option value="Charisma">Car</option>
+        </select>
+
+        <select id="dropdown5" class="custom-dropdown" onchange="updateDropdown(this)">
+          <option value="">Select an ability</option>
+          <option value="Strength">Str</option>
+          <option value="Dexterity">Dex</option>
+          <option value="Constitution">Con</option>
+          <option value="Intelligence">Int</option>
+          <option value="Wisdom">Wis</option>
+          <option value="Charisma">Car</option>
+        </select>
+
+        <select id="dropdown6" class="custom-dropdown" onchange="updateDropdown(this)">
+          <option value="">Select an ability</option>
+          <option value="Strength">Str</option>
+          <option value="Dexterity">Dex</option>
+          <option value="Constitution">Con</option>
+          <option value="Intelligence">Int</option>
+          <option value="Wisdom">Wis</option>
+          <option value="Charisma">Car</option>
+        </select>
+        <button class="rollButton" onclick="assignAbilities()">Assign</button>
       </div>
   </div>
 </div>
@@ -142,7 +208,44 @@ function rollAbilityScores() {
     document.getElementById(`rolledScore${j}`).value = abilityScores[j];
   }
 }
+function updateDropdown(selectedDropdown) {
+  selectedAbility=selectedDropdown.value
+  var numberDropdowns = document.getElementsByClassName('custom-dropdown');
 
+  // Loop through all number dropdowns
+  for (var i = 0; i < numberDropdowns.length; i++) {
+    var numberDropdown = numberDropdowns[i];
+    
+    // Skip the selected number dropdown
+    if (numberDropdown !== selectedDropdown && selectedAbility !== "") {
+      var abilityOptions = numberDropdown.getElementsByTagName('option');
+      
+      // Loop through the ability options of the other number dropdowns
+      for (var j = 0; j < abilityOptions.length; j++) {
+        if (abilityOptions[j].value === selectedAbility) {
+          abilityOptions[j].disabled = true;
+        }
+      }
+    }
+  }
+}
+function assignAbilities() {
+  for(var i=0;i<6;i++) {
+    if(document.getElementById("dropdown" + (i+1)).value == "Strength") {
+      document.getElementById("strength").value = document.getElementById("rolledScore"+i).value
+    } else if(document.getElementById("dropdown" + (i+1)).value == "Dexterity") {
+      document.getElementById("dexterity").value = document.getElementById("rolledScore"+i).value
+    } else if(document.getElementById("dropdown" + (i+1)).value == "Constitution") {
+      document.getElementById("constitution").value = document.getElementById("rolledScore"+i).value
+    } else if(document.getElementById("dropdown" + (i+1)).value == "Intelligence") {
+      document.getElementById("intelligence").value = document.getElementById("rolledScore"+i).value
+    } else if(document.getElementById("dropdown" + (i+1)).value == "Wisdom") {
+      document.getElementById("wisdom").value = document.getElementById("rolledScore"+i).value
+    } else if(document.getElementById("dropdown" + (i+1)).value == "Charisma") {
+      document.getElementById("charisma").value = document.getElementById("rolledScore"+i).value
+    }
+  }
+}
 function calculateFinalScores() {
   const abilityScores = {
     strength: parseInt(document.getElementById("strength").value) || 0,
