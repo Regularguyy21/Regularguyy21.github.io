@@ -95,6 +95,3 @@ function rollAbilityScores() {
   function sumArray(arr) {
     return arr.reduce((sum, value) => sum + value, 0);
   }
-  function createCharacter(race,las) {
-
-  }

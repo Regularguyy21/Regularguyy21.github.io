@@ -30,6 +30,8 @@
     </style>
   </head>
   <body>
+    <h1>Ability Scores: Point Buy</h1>
+    <br>
     <div id="abilityScores">
         <div class="abilityBox">
           <label for="strength">STR</label><br>
@@ -55,18 +57,78 @@
         </div>
         <div class="pointCounter">
           <label>Points Left:</label><br>
-          <input type="number" class="counterDisplay" min="0" max="27" value="27" readonly>
+          <input id="counter" type="number" class="counterDisplay" min="0" max="27" value="27" readonly>
         </div>
       </div>
       <br>
       <br>
       <div id="abilityInputList">
-        <input type="number"class="abilityInput" min="8" max="15" value="8">
-        <input type="number"class="abilityInput" min="8" max="15" value="8">
-        <input type="number"class="abilityInput" min="8" max="15" value="8">
-        <input type="number"class="abilityInput" min="8" max="15" value="8">
-        <input type="number"class="abilityInput" min="8" max="15" value="8">
-        <input type="number"class="abilityInput" min="8" max="15" value="8">
+        <input id="1" type="number"class="abilityInput" min="8" max="15" value="8" onchange="changePoints(this)">
+        <input id="2" type="number"class="abilityInput" min="8" max="15" value="8" onchange="changePoints(this)">
+        <input id="3" type="number"class="abilityInput" min="8" max="15" value="8" onchange="changePoints(this)">
+        <input id="4" type="number"class="abilityInput" min="8" max="15" value="8" onchange="changePoints(this)">
+        <input id="5" type="number"class="abilityInput" min="8" max="15" value="8" onchange="changePoints(this)">
+        <input id="6" type="number"class="abilityInput" min="8" max="15" value="8" onchange="changePoints(this)">
       </div>
+      <br>
+      <h3>Racial Bonus</h3>
+      <div id="abilityInputList">
+        <input id="m1" type="number"class="abilityInput" min="-4" max="4" value="0" onchange="changePoints(this)">
+        <input id="m2" type="number"class="abilityInput" min="-4" max="4" value="0" onchange="changePoints(this)">
+        <input id="m3" type="number"class="abilityInput" min="-4" max="4" value="0" onchange="changePoints(this)">
+        <input id="m4" type="number"class="abilityInput" min="-4" max="4" value="0" onchange="changePoints(this)">
+        <input id="m5" type="number"class="abilityInput" min="-4" max="4" value="0" onchange="changePoints(this)">
+        <input id="m6" type="number"class="abilityInput" min="-4" max="4" value="0" onchange="changePoints(this)">
+      </div>
+      <br>
+      <div class="abilitySection">
+        <h2>Final Ability Scores</h2>
+        <button onclick="finalScores()">Calculate</button>
+        <div id="finalScores"></div>
+      </div>
+      <script>
+        for(var i=0;i<6;i++) {
+            document.getElementById(`${i+1}`).addEventListener("keydown", e => e.keyCode != 38 && e.keyCode != 40 && e.preventDefault())
+            document.getElementById(`m${i+1}`).addEventListener("keydown", e => e.keyCode != 38 && e.keyCode != 40 && e.preventDefault())
+        }
+        function changePoints(ability) {
+            pointsCurrent=calculatePoints()
+            if(pointsCurrent<0) {
+                ability.value=ability.value-1
+            }
+            document.getElementById("counter").value=calculatePoints()
+        }
+        function calculatePoints() {
+            var points = 27
+            for(var i=1;i<=6;i++) {
+                var subtractor=0
+                var number=document.getElementById(`${i}`).value
+                subtractor= number-8
+                var num2=number-13
+                if(num2>0){
+                    subtractor+=num2*2
+                }
+                points-=subtractor
+            }
+            return points
+
+        }
+
+        function finalScores() {
+            scores=[]
+            for(var i=1;i<=6;i++) {
+                score1= Number(document.getElementById(`${i}`).value) + Number(document.getElementById(`m${i}`).value)
+                scores.push(score1)
+            }
+            
+            document.getElementById("finalScores").innerHTML = `
+            STR: ${scores[0]}<br>
+            DEX: ${scores[1]}<br>
+            CON: ${scores[2]}<br>
+            INT: ${scores[3]}<br>
+            WIS: ${scores[4]}<br>
+            CHA: ${scores[5]}`;
+        }
+      </script>
   </body>
 </html>
