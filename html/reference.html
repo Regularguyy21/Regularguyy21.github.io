@@ -1,51 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8"/>
-  <title>Random Character Generator</title>
-
-  <link rel="stylesheet" href="css/Styles.css">
-  <link href='//fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic'
-        rel='stylesheet' type='text/css'>
-  <link href='//fonts.googleapis.com/css?family=Libre+Baskerville:700'
-        rel='stylesheet' type='text/css'>
-
-  <script type="module" src="src/js/stat-block.js"></script>
-  <script type="module" src="src/js/creature-heading.js"></script>
-  <script type="module" src="src/js/top-stats.js"></script>
-  <script type="module" src="src/js/abilities-block.js"></script>
-  <script type="module" src="src/js/property-line.js"></script>
-  <script type="module" src="src/js/property-block.js"></script>
-
-  <style>
-    body {
-      margin: 0;
-    }
-
-    stat-block {
-      /* A bit of margin for presentation purposes, to show off the drop
-      shadow. */
-      margin-left: 20px;
-      margin-top: 20px;
-    }
-  </style>
-</head>
-<body>
-  <h1>Gennerate Character</h1><br>
-  <p>Please select your characters:</p>
-  <p>If you would like it to be random select: "Select Option"</p>
-  <ul>
-    <li>Name:<input type="text" placeholder="Rick Astley" style="width: 75px; margin-left: 10px"></li>
-    <li>Level:<input id="lvl"type="number" min="1" max="20" value="1" style="width: 30px; margin-left: 10px"></li>
-    <li>Class: <select name="SelectClass" id="class" style="margin-left: 10px">
-      <option value="random">Select Option</option>
-      <option value="fighter">Fighter</option>
-    </select></li>
-    <li>Race:</li>
-    <li>SubRace (if applicable):</li>
-    <li>Generation Method:</li>
-  </ul>
-  <stat-block>
+<stat-block data-two-column style="--data-content-height: 400px;">
     <creature-heading>
       <h1>Animated Armor</h1>
       <h2>Medium construct, unaligned</h2>
@@ -121,5 +74,3 @@
         <i>Hit:</i> 5 (1d6 + 2) bludgeoning damage.</p>
     </property-block>
   </stat-block>
-</body>
-</html>
