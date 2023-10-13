@@ -95,3 +95,10 @@ function rollAbilityScores() {
   function sumArray(arr) {
     return arr.reduce((sum, value) => sum + value, 0);
   }
+
+  function assignStandardArray() {
+    standardArray=[15,14,13,12,10,8]
+    for(var i=0;i<6;i++) {
+      document.getElementById(`rolledScore${i}`).value=standardArray[i]
+    }
+  }
