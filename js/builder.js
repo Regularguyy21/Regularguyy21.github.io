@@ -26,7 +26,10 @@ function rollAbilityScores() {
         for (var j = 0; j < abilityOptions.length; j++) {
           if (abilityOptions[j].value === selectedAbility) {
             abilityOptions[j].disabled = true;
+          } else {
+            abilityOptions[j].disabled = false;
           }
+
         }
       }
     }
