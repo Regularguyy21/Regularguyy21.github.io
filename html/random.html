@@ -95,7 +95,15 @@ margin-top: 20px;
       abilityScores.reverse()
       oStats = setAbilityPosition(abilityScores,cClass,vNum)
       document.getElementById("Character Output").innerHTML= `
-
+      <stat-block>
+        <abilities-block 
+        data-str="${oStats[0]}"
+        data-dex="${oStats[1]}"
+        data-con="${oStats[2]}"
+        data-int="${oStats[3]}"
+        data-wis="${oStats[4]}"
+        data-cha="${oStats[5]}"></abilities-block>
+      </stat-block>
       `
     }
     function setAbilityPosition(stats,c,num) {
