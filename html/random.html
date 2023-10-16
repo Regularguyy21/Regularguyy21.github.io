@@ -35,7 +35,7 @@ margin-top: 20px;
   <p>Please select your characters:</p>
   <ul>
     <li>Name:
-      <input type="text" placeholder="Rick Astley" style="width: 75px; margin-left: 10px">
+      <input id="name" type="text" placeholder="Rick Astley" style="width: 75px; margin-left: 10px">
     </li> 
     <li>Level:
       <input id="lvl"type="number" min="1" max="1" value="1" style="width: 30px; margin-left: 10px">
@@ -83,6 +83,7 @@ margin-top: 20px;
       cClass = document.getElementById("class").value
       cSRace = document.getElementById("sRace").value
       cLvl = document.getElementById("lvl").value
+      cName = document.getElementById("name")
       genMethod = document.getElementById("gen").value
       vNum= Math.floor((Math.random() * 100) + 1);
       var abilityScores = [];
@@ -97,6 +98,10 @@ margin-top: 20px;
       oStats = setAbilityPosition(abilityScores,cClass,vNum)
       document.getElementById("Character Output").innerHTML= `
       <stat-block>
+        <creature-heading>
+          <h1>${cName}</h1>
+          <h2>Medium ${cRace}</h2>
+        </creature-heading>
         <abilities-block 
         data-str="${oStats[0]}"
         data-dex="${oStats[1]}"
