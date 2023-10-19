@@ -111,8 +111,8 @@
       if(Char.race=="random") {
         n=Math.floor((Math.random() * (document.getElementById("race").length-1)))+1;
         Char.race=document.getElementById("r" + n).value
+        sRaceSet(Char.race)
       }
-      sRaceSet(Char.race)
       if(Char.subRace=="random") {
         n=Math.floor((Math.random() * (document.getElementById("sRace").length-1)))+1;
         Char.subRace=document.getElementById("sr" + n).value
