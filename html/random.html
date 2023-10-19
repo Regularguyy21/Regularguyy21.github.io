@@ -192,7 +192,7 @@
     function setAbilityMod(c) {
       modReturn=[]
       for(let i=0;i<6;i++) {
-        modReturn[i] = Math.round((c.abilities[i]-10)/2)
+        modReturn[i] = Math.floor((c.abilities[i]-10)/2)
       }
       return modReturn
     }
