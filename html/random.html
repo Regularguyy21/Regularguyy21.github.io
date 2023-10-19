@@ -46,19 +46,21 @@
         <option value="fighter">Fighter</option>
       </select>
     </li>
-    <li>Sub-Class: 
+    <li style="display: inline">Sub-Class: 
       <select name="SelectClass" id="sClass" style="margin-left: 10px">
         <option value="random">Select Class</option>
       </select>
     </li>
     <li>Race: 
-      <select name="SelectRace" id="race" style="margin-left: 10px" onchange="sRaceSet(this)">
+      <select name="SelectRace" id="race" style="margin-left: 10px" onchange="sRaceSet(this.value)">
         <option value="random">Select Option</option>
-        <option value="human">Human</option>
-        <option value="elf">Elf</option>
+        <option id="r1" value="dwarf">Dwarf</option>
+        <option id="r2" value="elf">Elf</option>
+        <option id="r3" value="human">Human</option>
+        <option id="r4" value="halfling">Halfling</option>
       </select>
     </li>
-    <li>Sub-Race (if applicable):
+    <li style="display: inline">Sub-Race:
       <select name="SelectSubRace" id="sRace" style="margin-left: 10px">
         <option value="random">Select a Race</option>
       </select>
@@ -69,19 +71,32 @@
   <div id="Character Output"></div>
   <script>
     function sRaceSet(r) {
-      Race = r.value
+      Race=r
       if(Race == "human") {
         document.getElementById("sRace").innerHTML= `
           <option value="random">Select Option</option>
-          <option value="standard">Standard Human</option>
+          <option id="sr1" value="standard">Standard Human</option>
         `
       } else if(Race == "elf") {
         document.getElementById("sRace").innerHTML= `
           <option value="random">Select Option</option>
-          <option value="wood">Wood Elf</option>
-          <option value="high">High Elf</option>
-          <option value="drow">Drow</option>
-        `
+          <option id="sr1" value="wood">Wood</option>
+          <option id="sr2" value="high">High</option>
+          <option id="sr3" value="drow">Drow</option>
+          `
+      } else if(Race=="dwarf") {
+        document.getElementById("sRace").innerHTML= `
+          <option value="random">Select Option</option>
+          <option id="sr1" value="mountain">Mountain</option>
+          <option id="sr2" value="hill">Hill</option>
+          <option id="sr3" value="duergar">Duergar</option>
+          `
+      } else if(Race=="halfling") {
+        document.getElementById("sRace").innerHTML= `
+          <option value="random">Select Option</option>
+          <option id="sr1" value="lightfoot">Lightfoot</option>
+          <option id="sr2" value="Stout">Stout</option>
+          `
       }
     }
     function createCharacter() {
@@ -93,8 +108,14 @@
         race: document.getElementById("race").value,
         subRace: document.getElementById("sRace").value
       }
-      if(Char.class=="random") {
-        n=Math.floor((Math.random() * (document.getElementById("class").length-1)) + 1);
+      if(Char.race=="random") {
+        n=Math.floor((Math.random() * (document.getElementById("race").length-1)))+1;
+        Char.race=document.getElementById("r" + n).value
+      }
+      sRaceSet(Char.race)
+      if(Char.subRace=="random") {
+        n=Math.floor((Math.random() * (document.getElementById("sRace").length-1)))+1;
+        Char.subRace=document.getElementById("sr" + n).value
       }
       vNum= Math.floor((Math.random() * 100) + 1);
       var abilityScores = [];
@@ -147,6 +168,20 @@
         } else if(c.subRace=="drow") {
           bonus=[0,2,0,0,0,1]
         }
+      } else if(c.race=='dwarf') {
+        if(c.subRace=="mountain"){
+          bonus=[2,0,2,0,0,0]
+        } else if(c.subRace=="hill") {
+          bonus=[0,0,2,0,1,0]
+        } else if(c.subRace=="duergar"){
+          bonus=[1,0,2,0,0,0]
+        }
+      } else if(c.race=='halfling') {
+        if(c.subRace=="lightfoot"){
+          bonus=[0,2,0,0,0,1]
+        } else if(c.subRace=="hill") {
+          bonus=[0,2,1,0,0,0]
+        }
       }
       finalStats=[]
       for(var i=0;i<6;i++){
@@ -157,13 +192,16 @@
     function setAbilityMod(c) {
       modReturn=[]
       for(let i=0;i<6;i++) {
-        modReturn[i] = Number((c.abilities[i]-10)/2)
+        modReturn[i] = Math.round((c.abilities[i]-10)/2)
       }
       return modReturn
     }
 
     function calcHP(c) {
       hpBonus=c.abilityMod[2]
+      if(c.race=="dwarf" && c.subRace=="hill") {
+        hpBonus+=1
+      }
       if(c.class=="wizard"||c.class=="sorcerer") {
         hitDie=6
       } else if(c.class=="rogue"||c.class=="warlock"||c.class=="cleric"
@@ -177,6 +215,7 @@
       }
       if(c.lvl==1) {
         hp=hitDie+hpBonus
+        return hp + " (" + c.lvl + "d" + hitDie + " + " + hpBonus + ")"
       }
     }
   </script>

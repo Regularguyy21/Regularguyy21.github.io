@@ -1,8 +1,9 @@
 # Ryan Edwards D&D 5e Character Creator
 
-current version 0.3.3
+current version 0.3.4
 
 version Logs:
+0.3.4 added human, elf, dwarf, and halfling to random.html and added fighter class, added ability to randomize class and subClass
 0.3.3 added syntax for stat block on random.html and added link to random from index
 0.3.2 developed UI for random.html and put in basic character creators
 0.3.1 created random.html and reference.html to start a random character creator
