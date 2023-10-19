@@ -1,33 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8"/>
   <title>Random Character Generator</title>
   <link rel="stylesheet" type="text/css" href="/css/Styles.css">
-  <link href='//fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic'
-  rel='stylesheet' type='text/css'>
-<link href='//fonts.googleapis.com/css?family=Libre+Baskerville:700'
-  rel='stylesheet' type='text/css'>
-
-<script type="module" src="src/js/stat-block.js"></script>
-<script type="module" src="src/js/creature-heading.js"></script>
-<script type="module" src="src/js/top-stats.js"></script>
-<script type="module" src="src/js/abilities-block.js"></script>
-<script type="module" src="src/js/property-line.js"></script>
-<script type="module" src="src/js/property-block.js"></script>
-
-<style>
-body {
-margin: 0;
-}
-
-stat-block {
-/* A bit of margin for presentation purposes, to show off the drop
-shadow. */
-margin-left: 20px;
-margin-top: 20px;
-}
-</style>
 </head>
 <body>
   <h1>Gennerate Character</h1><br>
@@ -46,21 +21,21 @@ margin-top: 20px;
         <option value="fighter">Fighter</option>
       </select>
     </li>
+    <li>Sub-Class: 
+      <select name="SelectClass" id="sClass" style="margin-left: 10px">
+        <option value="random">Select Class</option>
+      </select>
+    </li>
     <li>Race: 
       <select name="SelectRace" id="race" style="margin-left: 10px" onchange="sRaceSet(this)">
         <option value="random">Select Option</option>
         <option value="human">Human</option>
+        <option value="elf">Elf</option>
       </select>
     </li>
-    <li>SubRace (if applicable):
+    <li>Sub-Race (if applicable):
       <select name="SelectSubRace" id="sRace" style="margin-left: 10px">
         <option value="random">Select a Race</option>
-      </select>
-    </li>
-    <li>Ability Score Gen Method:
-      <select name="SelectGenerationMethod" id="gen" style="margin-left: 10px">
-        <option value="random">Select Option</option>
-        <option value="Roll">Roll</option>
       </select>
     </li>
     <h2>Character:</h2>
@@ -74,17 +49,28 @@ margin-top: 20px;
         document.getElementById("sRace").innerHTML= `
           <option value="random">Select Option</option>
           <option value="standard">Standard Human</option>
-          <option value="Varient">Varient Human</option>
+        `
+      } else if(Race == "elf") {
+        document.getElementById("sRace").innerHTML= `
+          <option value="random">Select Option</option>
+          <option value="wood">Wood Elf</option>
+          <option value="high">High Elf</option>
+          <option value="drow">Drow</option>
         `
       }
     }
     function createCharacter() {
-      cRace = document.getElementById("race").value
-      cClass = document.getElementById("class").value
-      cSRace = document.getElementById("sRace").value
-      cLvl = document.getElementById("lvl").value
-      cName = document.getElementById("name")
-      genMethod = document.getElementById("gen").value
+      Char = {
+        name: document.getElementById("name").value,
+        lvl: document.getElementById("lvl").value,
+        class: document.getElementById("class").value,
+        subClass: document.getElementById("sClass").value,
+        race: document.getElementById("race").value,
+        subRace: document.getElementById("sRace").value
+      }
+      if(Char.class=="random") {
+        n=Math.floor((Math.random() * (document.getElementById("class").length-1)) + 1);
+      }
       vNum= Math.floor((Math.random() * 100) + 1);
       var abilityScores = [];
       for (let i = 0; i < 6; i++) {
@@ -95,35 +81,77 @@ margin-top: 20px;
       }
       abilityScores.sort((a, b) =>a - b);
       abilityScores.reverse()
-      oStats = setAbilityPosition(abilityScores,cClass,vNum)
+      Char.abilities = setAbilityPosition(abilityScores,Char,vNum)
+      Char.abilityMod = setAbilityMod(Char)
       document.getElementById("Character Output").innerHTML= `
       <stat-block>
         <creature-heading>
-          <h1>${cName}</h1>
-          <h2>Medium ${cRace}</h2>
+          <h1>${Char.name}</h1>
+          <h2>Medium humanoid</h2>
         </creature-heading>
+        <top-stats>
+          <property-line>
+            <h4>Hit Points</h4>
+            <p>${calcHP(Char)}</p>
+          </property-line>
         <abilities-block 
-        data-str="${oStats[0]}"
-        data-dex="${oStats[1]}"
-        data-con="${oStats[2]}"
-        data-int="${oStats[3]}"
-        data-wis="${oStats[4]}"
-        data-cha="${oStats[5]}"></abilities-block>
+        data-str="${Char.abilities[0]}"
+        data-dex="${Char.abilities[1]}"
+        data-con="${Char.abilities[2]}"
+        data-int="${Char.abilities[3]}"
+        data-wis="${Char.abilities[4]}"
+        data-cha="${Char.abilities[5]}"></abilities-block>
       </stat-block>
       `
     }
     function setAbilityPosition(stats,c,num) {
-      if(c=="fighter") {
+      if(c.class=="fighter") {
         if(num<50) {
           orgArr=[0,2,1,5,4,3]
         } else {
           orgArr=[2,0,1,5,3,4]
         }
+      }
+      if(c.race=="human"){
+        bonus=[1,1,1,1,1,1]
+      } else if(c.race=='elf'){
+        if(c.subRace=="high") {
+          bonus=[0,2,0,1,0,0]
+        } else if(c.subRace=="wood") {
+          bonus=[0,2,0,0,1,0]
+        } else if(c.subRace=="drow") {
+          bonus=[0,2,0,0,0,1]
+        }
+      }
       finalStats=[]
       for(var i=0;i<6;i++){
-        finalStats[i]= stats[orgArr[i]]
+        finalStats[i]= stats[orgArr[i]]+bonus[i]
       }
       return finalStats
+    }
+    function setAbilityMod(c) {
+      modReturn=[]
+      for(let i=0;i<6;i++) {
+        modReturn[i] = Number((c.abilities[i]-10)/2)
+      }
+      return modReturn
+    }
+
+    function calcHP(c) {
+      hpBonus=c.abilityMod[2]
+      if(c.class=="wizard"||c.class=="sorcerer") {
+        hitDie=6
+      } else if(c.class=="rogue"||c.class=="warlock"||c.class=="cleric"
+      ||c.class=="druid"||c.class=="artificer"||c.class=="bard"
+      ||c.class=="monk") {
+        hitDie=8
+      } else if(c.class=="fighter"||c.class=="ranger"||c.class=="paladin") {
+        hitDie=10
+      } else if(c.class=="barbarian") {
+        hitDie=12
+      }
+      if(c.lvl==1) {
+        hp=hitDie+hpBonus
       }
     }
   </script>
